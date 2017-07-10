@@ -4,7 +4,7 @@ I have implemented a simple ssr production build with express.
 
 Below you will find some information on how to perform common tasks.<br>
 
-#Development Build
+# Development Build
 
 To build a development build run:
 
@@ -14,9 +14,9 @@ To build a development build run:
 
 This will start a server at  http://localhost:3000
 
-#Deployment
+# Deployment
 
-##Build a ssr build
+## Build a ssr build
 
 To build a release build run:
  ```
@@ -25,7 +25,7 @@ To build a release build run:
 
 This will create a SSR build of the website into the folder `build`
 
-##Test SSR build before release
+## Test SSR build before release
 
 to debug and test a ssr build of the site, run the following command:
  ```
@@ -34,4 +34,4 @@ to debug and test a ssr build of the site, run the following command:
 
 This should start a server at http://localhost:3001
 
-##Deploy to production website
+## Deploy to production website
