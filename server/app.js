@@ -9,7 +9,9 @@ const fs = require('fs')
 const api = require('./routes/api')
 const universalLoader = require('../build/server').default
 const router = express.Router()
-router.get('/', universalLoader)
+const clientStats = require('../build/stats.json')
+
+router.get('/', universalLoader({ clientStats } ) )
 
 const app = express()
 
@@ -31,8 +33,6 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')))
 app.use('/api', api)
 
 // Always return the main index.html, so react-router render the route in the client
-app.use('*', function(req, res) {
-    universalLoader(req, res);
-})
+app.use('*', universalLoader({ clientStats } ))
 
 module.exports = app

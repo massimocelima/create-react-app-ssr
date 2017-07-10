@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class Example2 extends Component {
+class Example1_1 extends Component {
     render() {
         return (
             <div>
-                This is the example 2 page
+                This is the example 1-1 page
             </div>
         );
     }
 }
 
-export default Example2;
+export default Example1_1;

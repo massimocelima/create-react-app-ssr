@@ -25,13 +25,14 @@ module.exports = Object.assign({}, clientConfig, {
         ])
     }),
     plugins: _.concat(_.reject(clientConfig.plugins, (plugin, i) =>
-        i === 0 || // CommonsChunkPlugin
-        i === 1 || // InterpolateHtmlPlugin
-        i === 2 || // HtmlWebpackPlugin
-        // i === 4 || // UglifyJsPlugin
-        i === 5 || // ExtractTextPlugin
-        i === 6 || // ManifestPlugin
-        i === 7 // SWPrecacheWebpackPlugin
+        i === 0 || // StatsPlugin
+        i === 1 || // CommonsChunkPlugin
+        i === 2 || // InterpolateHtmlPlugin
+        i === 3 || // HtmlWebpackPlugin
+        // i === 5 || // UglifyJsPlugin
+        i === 6 || // ExtractTextPlugin
+        i === 7 || // ManifestPlugin
+        i === 8 // SWPrecacheWebpackPlugin
     ), new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1
     })),

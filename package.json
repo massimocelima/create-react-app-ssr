@@ -4,7 +4,8 @@
   "private": true,
   "devDependencies": {
     "cross-env": "^5.0.1",
-    "null-loader": "^0.1.1"
+    "null-loader": "^0.1.1",
+    "stats-webpack-plugin": "^0.6.1"
   },
   "dependencies": {
     "autoprefixer": "7.1.1",
@@ -44,6 +45,7 @@
     "url-loader": "0.5.9",
     "webpack": "2.6.1",
     "webpack-dev-server": "2.5.0",
+    "webpack-flush-chunks": "^1.1.10",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "2.0.3"
   },
