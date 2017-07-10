@@ -228,6 +228,11 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+        names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
+        chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
+        minChunks: Infinity
+    }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">

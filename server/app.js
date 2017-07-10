@@ -31,6 +31,8 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')))
 app.use('/api', api)
 
 // Always return the main index.html, so react-router render the route in the client
-app.use('*', universalLoader)
+app.use('*', function(req, res) {
+    universalLoader(req, res);
+})
 
 module.exports = app

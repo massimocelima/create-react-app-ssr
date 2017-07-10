@@ -3,7 +3,7 @@ require('dotenv').config()
 
 const app = require('./app')
 
-const PORT = process.env.PORT || 3002
+const PORT = process.env.PORT || 3003
 
 // Why don't I need http createServer
 app.listen(PORT, ()=>{
