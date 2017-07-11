@@ -14,7 +14,7 @@ import configureStore from './universalStore'
 import App from './components/App'
 
 export default ({clientStats}) => (req, res) => {
-    const filePath = path.resolve(__dirname, 'index.html')
+    const filePath = path.resolve(__dirname, '..', '..', 'build', 'index.html')
 
     //const chunkNames = flushChunkNames()
     //const { js, styles, cssHash } = flushChunks(clientStats, { chunkNames })

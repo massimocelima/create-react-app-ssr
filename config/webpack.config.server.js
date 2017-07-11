@@ -9,8 +9,8 @@ const webpack = require('webpack')
 module.exports = Object.assign({}, clientConfig, {
     entry: paths.ssrIndexJs,
     output: Object.assign({}, clientConfig.output, {
-        filename: 'server.js',
-        chunkFilename: 'server.[chunkhash:8].chunk.js',
+        filename: '../server/build/server.js',
+        chunkFilename: '../server/build/server.[chunkhash:8].chunk.js',
         library: 'server',
         libraryTarget: 'commonjs2',
     }),

@@ -7,7 +7,7 @@ const fs = require('fs')
 
 // routes
 const api = require('./routes/api')
-const universalLoader = require('../build/server').default
+const universalLoader = require('./build/server').default
 const router = express.Router()
 const clientStats = require('../build/stats.json')
 
