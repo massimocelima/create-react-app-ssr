@@ -27,10 +27,14 @@ app.use(morgan('combined'))
 
 app.use('/', router)
 
+//No you cannot download me, i am private
+app.use('/server.js', function(req, res) { res.status(400); res.send(""); } )
+
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '..', 'build')))
 
 app.use('/api', api)
+app.use('/api/*', api)
 
 // Always return the main index.html, so react-router render the route in the client
 app.use('*', universalLoader({ clientStats } ))

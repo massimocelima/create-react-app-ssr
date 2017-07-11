@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux'
-import display from "./display"
+import layout from "./layout"
+import content from "./content"
 
-export default function() {
-    return combineReducers({
-        display
-    })
-}
+export default {
+    layout,
+    content
+};

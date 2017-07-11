@@ -1,12 +1,24 @@
-import {createStore, compose as defaultCompose} from 'redux'
-//import {createStore, applyMiddleware, compose as defaultCompose} from 'redux'
 //import thunk from 'redux-thunk';
 //import {middleware as reduxPackMiddleware} from 'redux-pack'
-//import {initializeCurrentLocation} from 'redux-little-router'
 //import {navigateMiddleware, gaTrackingMiddleware} from './middlewares'
-import createReducer from './reducers'
+import { createStore, applyMiddleware, compose as defaultCompose, combineReducers } from 'redux'
+import reducers from './reducers'
+import { connectRoutes } from 'redux-first-router'
+import restoreScroll from 'redux-first-router-restore-scroll'
+import routesMap, { options } from './routesMap'
+import {canUseDom} from "./utils/dom"
 
-export default function() {
+export default function(history) {
+
+    const { reducer, middleware, enhancer, thunk } = connectRoutes(
+        history,
+        routesMap,
+        {
+            ...options,
+            restoreScroll: canUseDom && restoreScroll({})
+        }
+    )
+
     let compose = defaultCompose
     /* global __REDUX_DEVTOOLS_EXTENSION_COMPOSE__:false */
     //if (process.env.NODE_ENV !== 'production' && typeof __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
@@ -16,13 +28,13 @@ export default function() {
         compose = __REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     }
 
-    const enhancers = compose()//routerEnhancer, applyMiddleware(
+    const rootReducer = combineReducers({ ...reducers, location: reducer })
+    const middlewares = applyMiddleware(
+        middleware,
         //thunk,
-        //reduxPackMiddleware,
-        //routerMiddleware,
-        //navigateMiddleware,
         //gaTrackingMiddleware,
-    //))
+    )
+    const enhancers = compose(enhancer, middlewares)
 
     // Grab the state from a global variable injected into the server-generated HTML
     const preloadedState = typeof window !== 'undefined' ? window.__PRELOADED_STATE__ : undefined
@@ -32,13 +44,15 @@ export default function() {
     }
 
     // Create Redux store with initial state, if specified
-    const store = createStore(createReducer(), preloadedState, enhancers)
+    const store = createStore(rootReducer, preloadedState, enhancers)
 
-    // dispatch the initial route
-    //const initialLocation = store.getState().router
-    //if (initialLocation) {
-    //    store.dispatch(initializeCurrentLocation(initialLocation))
-    //}
+    if (module.hot && process.env.NODE_ENV === 'development') {
+        module.hot.accept('./reducers/index', () => {
+            const reducers = require('./reducers/index')
+            const rootReducer = combineReducers({ ...reducers, location: reducer })
+            store.replaceReducer(rootReducer)
+        })
+    }
 
-    return store
+    return { store, thunk }
 }

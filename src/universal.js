@@ -6,13 +6,11 @@ import {renderToString} from 'react-dom/server'
 import {Provider} from 'react-redux'
 import {Helmet} from 'react-helmet'
 import {SheetsRegistryProvider, SheetsRegistry} from 'react-jss'
-import createStore from "./store"
+import configureStore from './universalStore'
+
 //import { flushChunkNames } from 'react-universal-component/server'
 //import flushChunks from 'webpack-flush-chunks'
 
-// TODO Setup redux-first-router
-
-//const {default: configureStore} = require('../src/store')
 import App from './components/App'
 
 export default ({clientStats}) => (req, res) => {
@@ -22,13 +20,14 @@ export default ({clientStats}) => (req, res) => {
     //const { js, styles, cssHash } = flushChunks(clientStats, { chunkNames })
     //const { js } = flushChunks(clientStats, { chunkNames })
 
-    fs.readFile(filePath, 'utf8', (err, htmlData) => {
+    fs.readFile(filePath, 'utf8', async (err, htmlData) => {
         if (err) {
             console.error('read err', err)
             return res.status(404).end()
         }
 
-        const store = createStore()
+        const store = await configureStore(req, res);
+        if (!store) return // no store means redirect was already served
 
         const sheets = new SheetsRegistry()
 

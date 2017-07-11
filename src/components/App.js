@@ -1,32 +1,15 @@
 import React, {Component} from 'react';
+import { NavLink } from 'redux-first-router-link'
 import logo from './logo.svg';
-import universal from "react-universal-component"
 import {Helmet} from 'react-helmet'
 import injectSheet from '../styles/injectSheet'
 
-const UniversalComponent1 = universal(() => import(/* webpackChunkName: 'example' */ './Example1'), {
-    resolve: () => require.resolveWeak('./Example1'),
-    chunkName: 'example'
-})
-
-const UniversalComponent11 = universal(() => import(/* webpackChunkName: 'example' */ './Example1_1'), {
-    resolve: () => require.resolveWeak('./Example1_1'),
-    chunkName: 'example'
-})
-
-const UniversalComponent2 = universal(() => import(/* webpackChunkName: 'example2' */ './Example2'), {
-    resolve: () => require.resolveWeak('./Example2'),
-    chunkName: 'example2'
-})
+import PageContent from "./PageContent"
 
 class App extends Component {
 
     componentDidMount() {
         console.log("Mounted")
-    }
-
-    handleClick = () => {
-        alert("Hello!")
     }
 
     render() {
@@ -62,10 +45,14 @@ class App extends Component {
                 <p className={classes.intro}>
                     To get started, edit <code>src/App.js</code> and save to reload.
                 </p>
-                <UniversalComponent1/>
-                <UniversalComponent11/>
-                <UniversalComponent2/>
-                <button onClick={this.handleClick}>Press Me</button>
+
+                <NavLink activeClassName={classes.active} exact to='/'>HOME</NavLink>
+                <NavLink activeClassName={classes.active} exact to='/example1'>Example 1</NavLink>
+                <NavLink activeClassName={classes.active} exact to='/example11'>Example 1-1</NavLink>
+                <NavLink activeClassName={classes.active} exact to='/example2'>Example 2</NavLink>
+
+                <PageContent />
+
             </div>
         );
     }
@@ -91,5 +78,8 @@ export default injectSheet({
     "@keyframes logo-spin": {
         from: { transform: "rotate(0deg)" },
         to: { transform: "rotate(360deg)" }
+    },
+    active: {
+        color: "green"
     }
 })(App);
