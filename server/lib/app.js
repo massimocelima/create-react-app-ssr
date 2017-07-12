@@ -7,9 +7,9 @@ const fs = require('fs')
 
 // routes
 const api = require('./routes/api')
-const universalLoader = require('./build/server').default
+const universalLoader = require('../build/server').default
 const router = express.Router()
-const clientStats = require('../build/stats.json')
+const clientStats = require('../../build/stats.json')
 
 router.get('/', universalLoader({ clientStats } ) )
 
@@ -28,10 +28,10 @@ app.use(morgan('combined'))
 app.use('/', router)
 
 //No you cannot download me, i am private
-app.use('/server.js', function(req, res) { res.status(400); res.send(""); } )
+app.use('/server.js', (req, res) => { res.status(400); res.send(""); } )
 
 // Serve static assets
-app.use(express.static(path.resolve(__dirname, '..', 'build')))
+app.use(express.static(path.resolve(__dirname, '..', "..", 'build')))
 
 app.use('/api', api)
 app.use('/api/*', api)
